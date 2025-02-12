@@ -1,20 +1,84 @@
+# backend:
+#   name: git-gateway
+#   branch: main  # Ensure you're using your default branch, usually 'main' or 'master'
 backend:
-  name: git-gateway
-  branch: master # Branch to update (master by default)
+  name: github
+  repo: ssg-themes/jekyll-decap-cms
+  branch: main
+  base_url: https://sveltia-cms-auth.dntech9x.workers.dev/
+  
+site_url: https://ssg-themes.github.io/jekyll-decap-cms/
+media_folder: "assets/images"  # Media files (images) will be stored here
+public_folder: "/jekyll-decap-cms/assets/images"  # URL for media files
 
-media_folder: "img/uploads" # Folder where user uploaded files should go
+collections:
+  # Blog posts
+  - name: 'posts'
+    label: 'Posts'
+    folder: '_posts'
+    create: true
+    slug: '{{year}}-{{month}}-{{day}}-{{slug}}'
+    editor:
+      preview: false
+    fields:
+      - { label: 'Publish Date', name: 'date', widget: 'datetime' }
+      - {
+          label: 'Author',
+          name: 'author',
+          widget: 'relation',
+          collection: 'authors',
+          display_fields: [display_name],
+          search_fields: [display_name],
+          value_field: 'short_name',
+        }
+      - { label: 'Categories', name: 'categories', widget: 'list', required: false } # Add categories field
+      - { label: 'Tags', name: 'tags', widget: 'list', required: false } # Add tags field (as a list)
+      - { label: 'Title', name: 'title', widget: 'string' }
+      - { label: 'Body', name: 'body', widget: 'markdown' }
+      - { label: 'Image', name: 'image', widget: 'image', required: false }
+      - { label: 'Video', name: 'video', widget: 'file', media_folder: 'assets/videos', public_folder: '/assets/videos', required: false }
+      - { label: 'Layout', name: 'layout', widget: 'hidden', default: 'post' }
 
-collections: # A list of collections the CMS should be able to edit
-  - name: "post" # Used in routes, ie.: /admin/collections/:slug/edit
-    label: "Post" # Used in the UI, ie.: "New Post"
-    folder: "_posts" # The path to the folder where the documents are stored
-    sort: "date:desc" # Default is title:asc
-    create: true # Allow users to create new documents in this collection
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
-    fields: # The fields each document in this collection have
-      - {label: "Layout", name: "layout", widget: "hidden", default: "post"}
-      - {label: "Title", name: "title", widget: "string", tagname: "h1"}
-      - {label: "Body", name: "body", widget: "markdown"}
-      - {label: "Categories", name: "categories", widget: "string", required: false}
-    meta: # Meta data fields. Just like fields, but without any preview element
-      - {label: "Publish Date", name: "date", widget: "datetime", format: "YYYY-MM-DD hh:mm:ss"}
+  # Personal posts
+  - name: 'personal'
+    label: 'Personal'
+    folder: '_personal'
+    create: true
+    slug: '{{year}}-{{month}}-{{day}}-{{slug}}'
+    editor:
+      preview: false
+    fields:
+      - { label: 'Title', name: 'title', widget: 'string' }
+      - { label: 'Publish Date', name: 'date', widget: 'datetime' }
+      - { label: 'Body', name: 'body', widget: 'markdown' }
+      - { label: 'Image', name: 'image', widget: 'image' }
+      - { label: 'Video', name: 'video', widget: 'file', media_folder: 'assets/videos', public_folder: '/assets/videos' }
+      - { label: 'Layout', name: 'layout', widget: 'hidden', default: 'personal' }
+
+  # Authors collection
+  - name: 'authors'
+    label: 'Authors'
+    folder: '_authors'
+    create: true
+    editor:
+      preview: false
+    fields:
+      - { label: 'Short Name', name: 'short_name', widget: 'string' }
+      - { label: 'Display Name', name: 'display_name', widget: 'string' }
+      - { label: 'Position', name: 'position', widget: 'string' }
+      - { label: 'Body', name: 'body', widget: 'markdown' }
+
+  # # Navigation Configuration
+  # - name: 'config'
+  #   label: 'Config'
+  #   files:
+  #     - label: 'Navigation'
+  #       name: 'navigation'
+  #       file: '_data/navigation.yml'
+  #       fields:
+  #         - label: 'Navigation Items'
+  #           name: 'items'
+  #           widget: 'list'
+  #           fields:
+  #             - { label: Name, name: name, widget: string }
+  #             - { label: Link, name: link, widget: string }
