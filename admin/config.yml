@@ -63,8 +63,9 @@ collections:
     editor:
       preview: false
     fields:
+      - { label: 'Display Name', name: 'title', widget: 'string' }
       - { label: 'Short Name', name: 'short_name', widget: 'string' }
-      - { label: 'Display Name', name: 'display_name', widget: 'string' }
+      # - { label: 'Display Name', name: 'display_name', widget: 'string' }
       - { label: 'Position', name: 'position', widget: 'string' }
       - { label: 'Body', name: 'body', widget: 'markdown' }
 
