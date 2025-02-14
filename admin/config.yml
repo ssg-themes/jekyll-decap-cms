@@ -4,7 +4,7 @@
 backend:
   name: github
   repo: ssg-themes/jekyll-decap-cms
-  branch: main
+  branch: sveltia/main
   base_url: https://sveltia-cms-auth.dntech9x.workers.dev/
   
 site_url: https://ssg-themes.github.io/jekyll-decap-cms/
