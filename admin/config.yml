@@ -27,8 +27,8 @@ collections:
           name: 'author',
           widget: 'relation',
           collection: 'authors',
-          display_fields: [display_name],
-          search_fields: [display_name],
+          display_fields: [title],
+          search_fields: [title],
           value_field: 'short_name',
         }
       - { label: 'Categories', name: 'categories', widget: 'list', required: false } # Add categories field
